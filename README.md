@@ -1,4 +1,4 @@
-# nwn-portrait-digitalOcean-uploader
+# nwn-nwsync-digitalOcean-uploader
 
 ## WIP: NOT TESTED 
 
@@ -22,6 +22,6 @@ moduleName | MODULENAME default:"MyModule"
 
 Note: no spaces in MODULENAME. abbreviations are recommended.
 
-4. Move nwsync files into the [nwsync](https://github.com/urothis/nwn-nwsync-digitalOcean-uploader/nwsync/) folder.
+4. Move nwsync files into the [nwsync](https://github.com/urothis/nwn-nwsync-digitalOcean-uploader/tree/master/nwsync) folder.
 5. Run the relative .bat (windows) .sh (linux) for your os. 
 6. Sit back and watch.
