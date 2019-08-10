@@ -1,4 +1,4 @@
-# nwn-portrait-digitalOcean-uploader
+# nwn-nwsync-digitalOcean-uploader
 
 ## WIP: NOT TESTED 
 
