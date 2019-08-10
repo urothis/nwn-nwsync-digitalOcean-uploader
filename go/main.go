@@ -66,7 +66,7 @@ func main() {
 		defer close(doneCh)
 
 		// List all objects from a bucket-name with a matching prefix.
-		for object := range client.ListObjects(spaceName, "nwsync/", true, doneCh) {
+		for object := range client.ListObjects(spaceName, "nwsync/"+os.Getenv("MODULENAME")+"/", true, doneCh) {
 			if object.Err != nil {
 				log.Fatalln(object.Err)
 			}
@@ -82,7 +82,8 @@ func main() {
 		log.Fatalln("Failed to remove " + e.ObjectName + ", error: " + e.Err.Error())
 	}
 	s.Stop()
-	log.Println("\nOld nwsync data purged")
+	log.Println("\n")
+	log.Println("Old nwsync data purged")
 
 	folder := "/nwsync"
 	totalCount, _ := fileCount(folder)
