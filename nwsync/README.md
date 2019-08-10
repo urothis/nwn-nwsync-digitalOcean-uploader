@@ -1,0 +1,1 @@
+## Put your `data` and `manifests` folders in here, along with `latest`
