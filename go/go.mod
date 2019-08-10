@@ -1,6 +1,7 @@
 module github.com/urothis/nwn-nwsync-digitalOcean-uploader
 
 require (
+	github.com/janeczku/go-spinner v0.0.0-20150530144529-cf8ef1d64394
 	github.com/minio/minio-go/v6 v6.0.33
 	github.com/schollz/progressbar/v2 v2.13.2
 	github.com/smartystreets/goconvey v0.0.0-20190731233626-505e41936337 // indirect

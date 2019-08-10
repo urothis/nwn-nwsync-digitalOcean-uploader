@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/janeczku/go-spinner"
 	minio "github.com/minio/minio-go/v6"
 	"github.com/schollz/progressbar/v2"
 )
@@ -52,6 +53,37 @@ func main() {
 	}
 	spaceName := os.Getenv("SPACE_NAME")
 
+	objectsCh := make(chan string)
+	log.Println("Purging old nwsync data from cdn")
+	s := spinner.StartNew("This may take some time...")
+	// Send object names that are needed to be removed to objectsCh
+	go func() {
+		defer close(objectsCh)
+
+		doneCh := make(chan struct{})
+
+		// Indicate to our routine to exit cleanly upon return.
+		defer close(doneCh)
+
+		// List all objects from a bucket-name with a matching prefix.
+		for object := range client.ListObjects(spaceName, "nwsync/", true, doneCh) {
+			if object.Err != nil {
+				log.Fatalln(object.Err)
+			}
+			objectsCh <- object.Key
+		}
+	}()
+
+	// Call RemoveObjects API
+	errorCh := client.RemoveObjects(spaceName, objectsCh)
+
+	// Print errors received from RemoveObjects API
+	for e := range errorCh {
+		log.Fatalln("Failed to remove " + e.ObjectName + ", error: " + e.Err.Error())
+	}
+	s.Stop()
+	log.Println("\nOld nwsync data purged")
+
 	folder := "/nwsync"
 	totalCount, _ := fileCount(folder)
 	log.Printf("%d files processing", int(totalCount))
@@ -78,5 +110,5 @@ func main() {
 	}
 	Totalelapsed := time.Since(start)
 	bar.Finish()
-	log.Printf("Successfully uploaded %d files | %s elapsed\n", int(count), fmtDuration(Totalelapsed))
+	log.Printf("Successfully uploaded %d files | %s elapsed\n", int(totalCount), fmtDuration(Totalelapsed))
 }
