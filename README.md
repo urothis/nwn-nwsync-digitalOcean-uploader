@@ -1,7 +1,5 @@
 # nwn-nwsync-digitalOcean-uploader
 
-## WIP: NOT TESTED 
-
 This is an application that I use in my CI for my personal nwn projects.
 
 This will ingest your nwsync files and upload them to a DigitalOcean Space.
