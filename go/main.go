@@ -62,7 +62,6 @@ func purgeOldNWSyncData(client *minio.Client, spaceName, objectPrefix string) in
 		if object.Err != nil {
 			log.Fatalln(object.Err)
 		}
-		log.Print(object.Key)
 		client.RemoveObject(spaceName, path + object.Key)
 		count++
 	}
@@ -94,9 +93,6 @@ func uploadNewNWSyncData(client *minio.Client, folder, spaceName string) (int, e
 			
 			// add increment to progress bar
 			bar.Add(1)
-
-			// get proper path
-			log.Print(path)
 
 			// upload object
 			_, err = client.FPutObject(spaceName, os.Getenv("MODULE_NAME") + "/" + path, path, minio.PutObjectOptions{ContentType: "application/gzip", UserMetadata: map[string]string{"x-amz-acl": "public-read"}})
@@ -148,5 +144,5 @@ func main() {
 	}
 
 	Totalelapsed := time.Since(start)
-	log.Printf("Successfully deleted %d old nwsync files | uploaded %d new  nwsync files | %s elapsed\n", int(deletedCount), int(uploadedCount), fmtDuration(Totalelapsed)) 
+	log.Printf("Successfully deleted %d old nwsync files | uploaded %d new nwsync files | %s elapsed\n", int(deletedCount), int(uploadedCount), fmtDuration(Totalelapsed)) 
 }

@@ -16,7 +16,7 @@ endpoint | ENDPOINT
 accessKeyID | ACCESS_KEY
 secretAccessKey | SECRET_KEY
 bucketName | SPACE_NAME default:"nwn"
-moduleName | MODULENAME default:"MyModule"   
+moduleName | MODULE_NAME default:"MyModule"   
 
 Note: no spaces in MODULENAME. abbreviations are recommended.
 
