@@ -12,5 +12,3 @@ COPY nwsync /nwsync
 RUN apt update \
     && apt-get install ca-certificates -y
 CMD upload
-
-
