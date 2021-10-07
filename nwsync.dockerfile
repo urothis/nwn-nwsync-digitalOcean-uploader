@@ -1,4 +1,4 @@
-FROM golang:1.12.7 as go-builder
+FROM golang:1.17.1 as go-builder
 COPY go /go/nwn-do
 RUN apt update \
     && cd /go/nwn-do \
